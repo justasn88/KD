@@ -316,15 +316,13 @@ def run_mutation_study(algo_type, filename):
 
 
 def nubraizyti_4_grafikus():
-    # Funkcija duomenų nuskaitymui
     def gauti_duomenis(failas):
         try:
             data = np.loadtxt(failas, skiprows=1)
-            return data[:, 0], data[:, 1], data[:, 3]  # Rate, Iters, Success
+            return data[:, 0], data[:, 1], data[:, 3]
         except:
             return None, None, None
 
-    # Nuskaitome abu failus
     r_ga, i_ga, s_ga = gauti_duomenis("mutacija_GA_4D.txt")
     r_ma, i_ma, s_ma = gauti_duomenis("mutacija_MA_4D.txt")
 
@@ -332,7 +330,6 @@ def nubraizyti_4_grafikus():
         print("Klaida: Nepavyko rasti mutacija_GA.txt arba mutacija_MA.txt")
         return
 
-    # Sukuriame 2x2 langą
     fig, axs = plt.subplots(2, 2, figsize=(14, 10))
     fig.suptitle('Mutacijos įtaka algoritmų efektyvumui (D=4)', fontsize=16)
 
@@ -378,12 +375,9 @@ def nubraizyti_4_grafikus():
 
 
 def trys_kalniukai_viz(x1, x2):
-    # Funkcijos parametrai
     A1, A2, A3 = 40.0, 70.0, 34.0
-    s1, s2, s3 = 2, 2.5, 2  # Mažesnis plotis, kad kalnai nesiliestų
+    s1, s2, s3 = 2, 2.5, 2 
 
-    # Išdėstome centrus skirtingose vietose, kad matytųsi 3 atskiri kalnai
-    # c1 = [-5, -5], c2 = [0, 0], c3 = [5, 5]
     dist1_sq = (x1 + 70) ** 2 + (x2 + 70) ** 2
     dist2_sq = (x1) ** 2 + (x2) ** 2
     dist3_sq = (x1 - 40) ** 2 + (x2 -  40) ** 2
@@ -393,30 +387,24 @@ def trys_kalniukai_viz(x1, x2):
             A3 * np.exp(-dist3_sq / (2 * s3 ** 2)))
 
 
-# 1. Paruošiami duomenys
 x = np.linspace(-100, 100, 100)
 y = np.linspace(-100, 100, 100)
 X, Y = np.meshgrid(x, y)
 Z = trys_kalniukai_viz(X, Y)
-
-# 2. Sukuriamas grafikas
+s
 fig = plt.figure(figsize=(10, 8))
 ax = fig.add_subplot(111, projection='3d')
-
-# Paviršiaus braižymas
+s
 surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm,
                        linewidth=0, antialiased=True, alpha=0.9)
 
-# Pridedame spalvų skalę
 fig.colorbar(surf, shrink=0.5, aspect=10, label='Fitness vertė')
 
-# Pavadinimai ir instrukcija
 ax.set_title('Interaktyvus grafikas: Sukinėkite naudodami pelę')
 ax.set_xlabel('X ašis')
 ax.set_ylabel('Y ašis')
 ax.set_zlabel('Fitness')
 
-# Leidžiame interaktyvumą
 plt.ion()
 plt.show(block=True)
 
@@ -472,7 +460,6 @@ for current_D in dimensions_to_test:
 
     #initial_pop = create_initial_parents_loop(POP_SIZE, current_D)
 
-    # 3. Paleidžiame Memetinį algoritmą su pilna populiacija
     best_bin_ma, best_fit_ma, history_ma, iterations_ma = memetic_genetic_algorithm_D(
         initial_parents=initial_pop,
         fitness_function=fitness_D,
@@ -489,10 +476,10 @@ for current_D in dimensions_to_test:
 
     print(f"D={current_D} baigta. Fitnesas: {best_fit_ma:.4f}, Laikas: {duration:.2f}s")
 
-# Galutinė suvestinė
 print("\n" + "=" * 40)
 print(f"DIMENSIJOS:  {dimensions_to_test}")
 print(f"FITNESAS:    {[f'{f:.4e}' for f in ma_best_fitness_rez]}")
 print(f"ITERACIJOS:  {ma_iterations_rez}")
 print(f"LAIKAS (s):  {[round(t, 2) for t in ma_time_rez]}")
 print("=" * 40)
+
