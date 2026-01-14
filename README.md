@@ -17,7 +17,7 @@ pip install numpy matplotlib scipy
         D=current_D,
         generations=MAX_GENS)
 
-        best_bin_ma, best_fit_ma, history_ma, iterations_ma = genetic_algorithm_D(
+    best_bin_ma, best_fit_ma, history_ma, iterations_ma = genetic_algorithm_D(
         initial_parents=initial_pop,
         fitness_function=fitness_D,
         mutation_rate=0.05,
